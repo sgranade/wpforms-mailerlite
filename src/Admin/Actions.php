@@ -18,9 +18,9 @@ class Actions
                 Settings::setApiKey($_POST['mailerlite_key']);
             }
 
-            if ( $_POST['action'] == 'enter-wpform-id'
-                && isset($_POST['wpform_id'])) {
-                Settings::setWPFormID($_POST['wpform_id']);
+            if ( $_POST['action'] == 'enter-wpforms-form-id'
+                && isset($_POST['wpforms_form_id'])) {
+                Settings::setWPFormsFormID($_POST['wpforms_form_id']);
             }
 
             if ( $_POST['action'] == 'enter-mailerlite-group-id'

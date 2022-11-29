@@ -64,7 +64,7 @@ class AdminController
      */
     public static function wpFormsID()
     {
-        return get_option( 'wpfml_wpform_id' );
+        return get_option( 'wpfml_wpforms_id' );
     }
 
     /**

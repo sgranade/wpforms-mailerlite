@@ -28,7 +28,7 @@ class Settings
             return;
         }
 
-        if ( ! wp_verify_nonce( $_POST['ml_api_field_nonce'], 'ml_form_nonce' ) ) {
+        if ( ! wp_verify_nonce( $_POST['ml_api_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
             add_action( 'admin_notices', [
                 '\WPFormsMailerLite\Admin\AdminNotice',
                 'notAllowedNotice'
@@ -68,9 +68,9 @@ class Settings
     }
 
     /**
-     * Checks and sets WPForm ID
+     * Checks and sets WPForms ID
      */
-    public static function setWPFormID($wpformId)
+    public static function setWPFormsFormID($wpformsId)
     {
         if ( function_exists( 'current_user_can' ) && ! current_user_can( 'manage_options' ) ) {
             add_action( 'admin_notices', [
@@ -80,7 +80,7 @@ class Settings
             return;
         }
 
-        if ( ! wp_verify_nonce( $_POST['wpform_id_field_nonce'], 'ml_form_nonce' ) ) {
+        if ( ! wp_verify_nonce( $_POST['wpforms_id_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
             add_action( 'admin_notices', [
                 '\WPFormsMailerLite\Admin\AdminNotice',
                 'notAllowedNotice'
@@ -88,7 +88,7 @@ class Settings
             return;
         }
 
-        update_option( 'wpfml_wpform_id', $wpformId);
+        update_option( 'wpfml_wpforms_id', $wpformsId);
     }
 
     /**
@@ -104,7 +104,7 @@ class Settings
             return;
         }
 
-        if ( ! wp_verify_nonce( $_POST['ml_group_id_field_nonce'], 'ml_form_nonce' ) ) {
+        if ( ! wp_verify_nonce( $_POST['ml_group_id_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
             add_action( 'admin_notices', [
                 '\WPFormsMailerLite\Admin\AdminNotice',
                 'notAllowedNotice'
