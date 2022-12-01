@@ -31,27 +31,9 @@ class Core
      */
     public static function install()
     {
-        global $wpdb;
-
         if ( ! self::hasServerRequirements() ) {
             return;
         }
-
-        $table_name = $wpdb->base_prefix . WPFORMSMALIERLITE_TABLE_NAME;
-
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-        $charset_collate = ' CHARACTER SET utf8 COLLATE utf8_bin';
-
-        $sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
-              id mediumint(9) NOT NULL AUTO_INCREMENT,
-              time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-              name tinytext NOT NULL,
-              type tinyint(1) default '1' NOT NULL,
-              data text NOT NULL,
-              PRIMARY KEY (id)
-           ) DEFAULT " . $charset_collate . ";";
-        dbDelta( $sql );
     }
 
     private static function hasServerRequirements()

@@ -24,6 +24,14 @@ class Hooks
             ]
         );
 
+        add_action(
+            'wpforms_process', [
+                '\WPFormsMailerLite\Actions',
+                'subscribePersonToNewsletter'
+            ],
+            10,
+            3 );
+
         if ( is_admin() ) {
             add_action(
                 'init', [
@@ -32,7 +40,5 @@ class Hooks
                 ]
             );
         }
-
-        // TODO register hook for WPForms
     }
 }

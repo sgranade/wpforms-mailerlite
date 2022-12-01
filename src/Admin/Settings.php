@@ -15,9 +15,9 @@ class Settings
     public function __construct() {}
 
     /**
-     * Checks and sets API key
+     * Checks and sets ML API key
      */
-    public static function setApiKey($key)
+    public static function setMLApiKey($key)
     {
 
         if ( function_exists( 'current_user_can' ) && ! current_user_can( 'manage_options' ) ) {
@@ -38,7 +38,7 @@ class Settings
 
         if ( $key == '' ) {
             // Allow to the remove the key
-            update_option( 'mailerlite_api_key', $key );
+            update_option( 'wpfml_mailerlite_api_key', $key );
         }
         else {
             $ML_Lists = new MailerLiteApi( $key );
@@ -59,36 +59,12 @@ class Settings
                 });
             }
             else {
-                update_option( 'mailerlite_api_key', $key );
+                update_option( 'wpfml_mailerlite_api_key', $key );
                 // save account information
-                update_option( 'mailerlite_account_id', $response->id );
-                update_option( 'mailerlite_account_subdomain', $response->subdomain );
+                update_option( 'wpfml_mailerlite_account_id', $response->id );
+                update_option( 'wpfml_mailerlite_account_subdomain', $response->subdomain );
             }
         }
-    }
-
-    /**
-     * Checks and sets WPForms ID
-     */
-    public static function setWPFormsFormID($wpformsId)
-    {
-        if ( function_exists( 'current_user_can' ) && ! current_user_can( 'manage_options' ) ) {
-            add_action( 'admin_notices', [
-                '\WPFormsMailerLite\Admin\AdminNotice',
-                'notAllowedNotice'
-            ] );
-            return;
-        }
-
-        if ( ! wp_verify_nonce( $_POST['wpforms_id_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
-            add_action( 'admin_notices', [
-                '\WPFormsMailerLite\Admin\AdminNotice',
-                'notAllowedNotice'
-            ] );
-            return;
-        }
-
-        update_option( 'wpfml_wpforms_id', $wpformsId);
     }
 
     /**
@@ -112,6 +88,55 @@ class Settings
             return;
         }
 
-        update_option( 'wpfml_group_id', $mlGroupId);
+        update_option( 'wpfml_mailerlite_group_id', $mlGroupId);
     }
+
+    /**
+     * Checks and sets WPForms Form ID
+     */
+    public static function setWPFormsFormID($wpformsFormId)
+    {
+        if ( function_exists( 'current_user_can' ) && ! current_user_can( 'manage_options' ) ) {
+            add_action( 'admin_notices', [
+                '\WPFormsMailerLite\Admin\AdminNotice',
+                'notAllowedNotice'
+            ] );
+            return;
+        }
+
+        if ( ! wp_verify_nonce( $_POST['wpforms_form_id_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
+            add_action( 'admin_notices', [
+                '\WPFormsMailerLite\Admin\AdminNotice',
+                'notAllowedNotice'
+            ] );
+            return;
+        }
+
+        update_option( 'wpfml_wpforms_form_id', $wpformsFormId);
+    }
+
+    /**
+     * Checks and sets WPForms Field ID
+     */
+    public static function setWPFormsFieldID($wpformsFieldId)
+    {
+        if ( function_exists( 'current_user_can' ) && ! current_user_can( 'manage_options' ) ) {
+            add_action( 'admin_notices', [
+                '\WPFormsMailerLite\Admin\AdminNotice',
+                'notAllowedNotice'
+            ] );
+            return;
+        }
+
+        if ( ! wp_verify_nonce( $_POST['wpforms_field_id_field_nonce'], 'wpfml_settings_form_nonce' ) ) {
+            add_action( 'admin_notices', [
+                '\WPFormsMailerLite\Admin\AdminNotice',
+                'notAllowedNotice'
+            ] );
+            return;
+        }
+
+        update_option( 'wpfml_wpforms_field_id', $wpformsFieldId);
+    }
+
 }

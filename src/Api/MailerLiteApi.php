@@ -133,13 +133,17 @@ class MailerLiteApi
      * @access      public
      * @return      mixed
      */
-    public function addSubscriber($subscriber, $resubscribe)
+    public function addSubscriber($subscriber, $groups = [])
     {
-        $response = $this->client->remote_post('/subscribers', [
+        $args = [
             'email' => $subscriber,
-            'resubscribe' => $resubscribe,
             'ip_address' => $_SERVER["REMOTE_ADDR"]
-        ]);
+        ];
+        if (count($groups) > 0) {
+            $args['groups'] = $groups;
+        }
+        
+        $response = $this->client->remote_post('/subscribers', $args);
 
         return self::parseResponse($response);
     }
